@@ -1,19 +1,10 @@
-import { HStack, Link, Text } from "@chakra-ui/react";
+import { HStack, Heading } from "@chakra-ui/react";
 import ColorModeSwitch from "./ColorModeSwitch";
 
 const NavBar = () => {
   return (
-    <HStack padding="10px">
-      <Text>AuthenFace</Text>
-      <Link>
-        <Text>Home</Text>
-      </Link>
-      <Link>
-        <Text>Snapshots</Text>
-      </Link>
-      <Link>
-        <Text>Profile</Text>
-      </Link>
+    <HStack padding="10px" justifyContent="space-between">
+      <Heading>AuthenFace</Heading>
       <ColorModeSwitch />
     </HStack>
   );

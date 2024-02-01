@@ -1,16 +1,12 @@
-import { Box, ChakraProvider, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Grid, GridItem } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 
 function App() {
   return (
     <Grid
       templateAreas={`"header header" "nav main" "nav footer"`}
-      gridTemplateRows={"50px 1fr 30px"}
       gridTemplateColumns={"150px 1fr"}
-      h="800px"
       gap="1"
-      color="blackAlpha.700"
-      fontWeight="bold"
     >
       <GridItem pl="2" area={"header"}>
         <NavBar />
