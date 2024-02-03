@@ -1,13 +1,4 @@
-import {
-  Box,
-  Center,
-  Flex,
-  Grid,
-  GridItem,
-  Square,
-  useColorMode,
-  Text,
-} from "@chakra-ui/react";
+import { Grid, GridItem, useColorMode } from "@chakra-ui/react";
 import MainHomeBody from "./components/MainHomeBody";
 import NavBar from "./components/NavBar";
 import SideBar from "./components/SideBar";
