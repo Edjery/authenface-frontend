@@ -17,29 +17,30 @@ function App() {
 
   return (
     <Grid
-      templateAreas={`"header header" "nav main"`}
-      gridTemplateRows={"90px 600px"}
-      gridTemplateColumns={"150px 1fr"}
-      gap="1"
+      templateAreas={`"header header header header" "leftSide nav main rightSide"`}
+      gridTemplateRows={"90px 1fr"}
+      gridTemplateColumns={"150px 150px 1fr 150px"}
+      rowGap="10"
+      columnGap="1"
     >
       <GridItem
         pl="2"
         area={"header"}
-        bg={colorMode === "dark" ? "blue.700" : "blue.300"}
+        bg={colorMode === "dark" ? "blue.900" : "blue.200"}
       >
         <NavBar />
       </GridItem>
       <GridItem
         pl="2"
         area={"nav"}
-        bg={colorMode === "dark" ? "blue.600" : "blue.200"}
+        bg={colorMode === "dark" ? "blue.800" : "blue.100"}
       >
         <SideBar />
       </GridItem>
       <GridItem
         pl="2"
         area={"main"}
-        bg={colorMode === "dark" ? "blue.600" : "blue.200"}
+        bg={colorMode === "dark" ? "blue.800" : "blue.100"}
       >
         <MainHomeBody />
       </GridItem>
