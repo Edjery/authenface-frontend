@@ -15,6 +15,7 @@ import IWebsite from "../services/interfaces/IWebsite";
 import websiteService from "../services/websiteService";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import ConfirmationModal from "./ConfirmationModal";
+import WebsiteFormModal from "./WebsiteFormModal";
 
 const Websites = () => {
   const [totalData, setTotalData] = useState<number>(0);
@@ -23,6 +24,14 @@ const Websites = () => {
   const [data, setData] = useState<IWebsite[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(2);
+
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [currentUserId, setCurrentUserId] = useState<number | undefined>();
+  const [currentWebsiteId, setCurrentWebsiteId] = useState<
+    number | undefined
+  >();
+  const [page, releadPage] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,9 +53,36 @@ const Websites = () => {
     };
 
     fetchData();
-  }, [currentPage, pageSize]);
+  }, [currentPage, pageSize, page]);
 
-  const handleEdit = () => {};
+  const handleWebsiteForm = (
+    userId: number | undefined,
+    websiteId: number | undefined
+  ) => {
+    setCurrentUserId(userId);
+    setCurrentWebsiteId(websiteId);
+    setEditOpen(true);
+  };
+
+  const handleEditClose = () => {
+    setCurrentUserId(undefined);
+    setCurrentWebsiteId(undefined);
+    setEditOpen(false);
+  };
+
+  const handleSubmit = async (formData: IWebsite) => {
+    // Create new website
+    if (!formData.id) {
+      console.log("creating");
+      // TODO add api when the authentication/login has been implemented
+    }
+    // Edit website
+    else {
+      console.log("editing");
+      await websiteService.update(formData.id, formData);
+    }
+    releadPage(!page);
+  };
 
   const handleDelete = () => {
     setConfirmOpen(false);
@@ -61,12 +97,14 @@ const Websites = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
 
-  const [confirmOpen, setConfirmOpen] = useState(false);
-
   return (
     <>
       <Box mx={10} mt={10}>
-        <Button>Add Website</Button>
+        <Button
+          onClick={() => handleWebsiteForm(currentUserId, currentWebsiteId)}
+        >
+          Add Website
+        </Button>
 
         <Table variant="simple" my={10}>
           <Thead>
@@ -84,7 +122,7 @@ const Websites = () => {
                     <Button
                       leftIcon={<EditIcon />}
                       colorScheme="blue"
-                      onClick={handleEdit}
+                      onClick={() => handleWebsiteForm(item.user, item.id)}
                     >
                       Edit
                     </Button>
@@ -109,6 +147,14 @@ const Websites = () => {
           Next Page
         </Button>
       </Box>
+
+      <WebsiteFormModal
+        isOpen={editOpen}
+        onClose={handleEditClose}
+        userId={currentUserId}
+        websiteId={currentWebsiteId}
+        onFormSubmit={handleSubmit}
+      />
 
       <ConfirmationModal
         isOpen={confirmOpen}
