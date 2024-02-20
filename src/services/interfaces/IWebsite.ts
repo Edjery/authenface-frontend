@@ -1,9 +1,9 @@
 interface IWebsite {
-  id: number;
+  id: number | undefined;
   name: string;
   url: string;
   account_name: string;
-  user: number;
+  user: number | undefined;
   created_at: string;
 }
 
