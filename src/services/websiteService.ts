@@ -60,7 +60,7 @@ class WebsiteService {
   async update(id: number, newWebsite: IWebsite): Promise<IWebsite | null> {
     try {
       const response = await axiosInstance.put<IWebsite>(
-        `${API_ENDPOINT}/${id}`,
+        `${API_ENDPOINT}${id}/`,
         newWebsite
       );
       if ((response.status = 200)) {
@@ -83,7 +83,7 @@ class WebsiteService {
   async remove(id: number): Promise<IWebsite | null> {
     try {
       const response = await axiosInstance.delete<IWebsite>(
-        `${API_ENDPOINT}/${id}`
+        `${API_ENDPOINT}${id}`
       );
       if ((response.status = 200)) {
         const deletedData = response.data;

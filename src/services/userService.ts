@@ -1,11 +1,11 @@
 import axiosInstance from "./apiClient";
 import IDataResponse from "./interfaces/IDataResponse";
-import ISnapshot from "./interfaces/ISnapshot";
+import IUser from "./interfaces/IUser";
 
-const API_ENDPOINT = "/snapshots/";
+const API_ENDPOINT = "/users/";
 
 class SnapshotService {
-  private snapshots: ISnapshot[] = [];
+  private users: IUser[] = [];
 
   constructor() {
     this.loadData();
@@ -14,7 +14,7 @@ class SnapshotService {
   private async loadData(): Promise<void> {
     try {
       const response = await this.getAll();
-      this.snapshots = response.results;
+      this.users = response.results;
     } catch (error) {
       console.error("Error in loading data:", error);
       throw error;
@@ -38,18 +38,15 @@ class SnapshotService {
     return data;
   }
 
-  get(id: number): ISnapshot | undefined {
-    return this.snapshots.find((item) => item.id === id);
+  get(id: number): IUser | undefined {
+    return this.users.find((item) => item.id === id);
   }
 
-  async create(newSnapshot: ISnapshot): Promise<ISnapshot> {
+  async create(newUser: IUser): Promise<IUser> {
     try {
-      const response = await axiosInstance.post<ISnapshot>(
-        API_ENDPOINT,
-        newSnapshot
-      );
+      const response = await axiosInstance.post<IUser>(API_ENDPOINT, newUser);
       const newData = response.data;
-      this.snapshots.push(newData);
+      this.users.push(newData);
       return newData;
     } catch (error) {
       console.error("Error in creating data:", error);
@@ -57,17 +54,17 @@ class SnapshotService {
     }
   }
 
-  async update(id: number, newSnapshot: ISnapshot): Promise<ISnapshot | null> {
+  async update(id: number, newUser: IUser): Promise<IUser | null> {
     try {
-      const response = await axiosInstance.put<ISnapshot>(
+      const response = await axiosInstance.put<IUser>(
         `${API_ENDPOINT}${id}`,
-        newSnapshot
+        newUser
       );
       if ((response.status = 200)) {
         const updatedData = response.data;
-        const index = this.snapshots.findIndex((item) => item.id === id);
+        const index = this.users.findIndex((item) => item.id === id);
         if (index !== -1) {
-          this.snapshots[index] = { ...updatedData };
+          this.users[index] = { ...updatedData };
         }
         return updatedData;
       } else {
@@ -80,14 +77,14 @@ class SnapshotService {
     }
   }
 
-  async remove(id: number): Promise<ISnapshot | null> {
+  async remove(id: number): Promise<IUser | null> {
     try {
-      const response = await axiosInstance.delete<ISnapshot>(
+      const response = await axiosInstance.delete<IUser>(
         `${API_ENDPOINT}${id}`
       );
       if ((response.status = 200)) {
         const deletedData = response.data;
-        this.snapshots = this.snapshots.filter((item) => item.id !== id);
+        this.users = this.users.filter((item) => item.id !== id);
         return deletedData;
       } else {
         console.error("Error: No data with that ID");
