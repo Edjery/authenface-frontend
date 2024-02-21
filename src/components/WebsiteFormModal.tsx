@@ -21,7 +21,7 @@ interface Props {
   websiteId: number | undefined;
   isOpen: boolean;
   onClose: () => void;
-  onFormSubmit: (formData: IWebsite) => void;
+  onSubmit: (formData: IWebsite) => void;
 }
 
 const WebsiteFormModal = ({
@@ -29,7 +29,7 @@ const WebsiteFormModal = ({
   websiteId,
   isOpen,
   onClose,
-  onFormSubmit,
+  onSubmit,
 }: Props) => {
   const initialValues: IWebsite = {
     id: websiteId,
@@ -62,7 +62,7 @@ const WebsiteFormModal = ({
         onSubmit={(values) => {
           console.log("values:", values);
           onClose();
-          onFormSubmit(values);
+          onSubmit(values);
         }}
       >
         {({ isSubmitting, errors, touched }) => (

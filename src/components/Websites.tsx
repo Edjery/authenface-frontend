@@ -153,7 +153,7 @@ const Websites = () => {
         onClose={handleEditClose}
         userId={currentUserId}
         websiteId={currentWebsiteId}
-        onFormSubmit={handleSubmit}
+        onSubmit={handleSubmit}
       />
 
       <ConfirmationModal
