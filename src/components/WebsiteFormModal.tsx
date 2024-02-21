@@ -65,7 +65,7 @@ const WebsiteFormModal = ({
           onFormSubmit(values);
         }}
       >
-        {({ setFieldValue, isSubmitting, errors, touched }) => (
+        {({ isSubmitting, errors, touched }) => (
           <Form>
             <ModalContent>
               <ModalHeader textAlign="center">Edit Website</ModalHeader>
