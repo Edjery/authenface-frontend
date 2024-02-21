@@ -100,5 +100,5 @@ class SnapshotService {
   }
 }
 
-const websiteService = new SnapshotService();
-export default websiteService;
+const snapshotService = new SnapshotService();
+export default snapshotService;
