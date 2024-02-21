@@ -2,13 +2,14 @@ import {
   Box,
   Button,
   FormControl,
-  FormErrorMessage,
   FormLabel,
   Input,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
+import { useContext } from "react";
+import { AuthContext } from "../../provider/AuthProvider";
 import loginSchema from "../../schema/loginSchema";
 
 interface loginValues {
@@ -17,8 +18,13 @@ interface loginValues {
 }
 
 const login = () => {
+  const { login } = useContext(AuthContext);
   const initialValues: loginValues = { username: "", password: "" };
-  const handleFormSubmit = (values: loginValues) => {};
+  const handleSubmit = (values: loginValues) => {
+    console.log(values);
+    const jwtToken = "fake-jwt-token";
+    login(jwtToken);
+  };
 
   return (
     <Box p={6} rounded="md">
@@ -27,7 +33,7 @@ const login = () => {
         validationSchema={loginSchema}
         onSubmit={(values) => {
           console.log("values:", values);
-          handleFormSubmit(values);
+          handleSubmit(values);
         }}
       >
         {({ isSubmitting, errors, touched }) => (
