@@ -1,5 +1,5 @@
 import { Grid, GridItem, useColorMode } from "@chakra-ui/react";
-import MainHomeBody from "./components/MainHomeBody";
+import HomePage from "./pages/HomePage";
 import NavBar from "./components/NavBar";
 import SideBar from "./components/SideBar";
 
@@ -33,7 +33,7 @@ function App() {
         area={"main"}
         bg={colorMode === "dark" ? "blue.800" : "blue.100"}
       >
-        <MainHomeBody />
+        <HomePage />
       </GridItem>
     </Grid>
   );
