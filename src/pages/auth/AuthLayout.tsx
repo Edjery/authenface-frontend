@@ -11,7 +11,7 @@ const AuthLayout = () => {
       <Grid
         templateAreas={`"header header header" "leftSide main rightSide"`}
         gridTemplateRows={"90px 1fr"}
-        gridTemplateColumns={"500px 1fr 500px"}
+        gridTemplateColumns={"700px 1fr 700px"}
         rowGap="10"
       >
         <GridItem
