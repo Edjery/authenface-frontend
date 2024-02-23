@@ -1,3 +1,6 @@
+import axios from "axios";
+import { toast, Bounce } from "react-toastify";
+import { registerValues } from "../pages/auth/Register";
 import axiosInstance from "./apiClient";
 import IDataResponse from "./interfaces/IDataResponse";
 import IUser from "./interfaces/IUser";
@@ -51,6 +54,43 @@ class SnapshotService {
     } catch (error) {
       console.error("Error in creating data:", error);
       throw error;
+    }
+  }
+
+  async register(newUser: registerValues): Promise<registerValues | undefined> {
+    try {
+      const response = await axiosInstance.post<registerValues>(
+        "register",
+        newUser
+      );
+      this.loadData();
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response && error.response.data) {
+          console.error("Error:", error.response.data);
+          for (const key in error.response.data) {
+            if (error.response.data.hasOwnProperty(key)) {
+              toast.error(error.response.data[key].toString(), {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+              });
+            }
+          }
+        } else {
+          console.error("Error:", error.message);
+        }
+      } else {
+        console.error("Error in updating data:", error);
+        throw error;
+      }
     }
   }
 

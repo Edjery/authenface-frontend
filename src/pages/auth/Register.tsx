@@ -10,62 +10,27 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../provider/AuthProvider";
+import { Bounce, toast } from "react-toastify";
 import registerSchema from "../../schema/registerSchema";
 import axiosInstance from "../../services/apiClient";
-import { Bounce, toast } from "react-toastify";
+import userService from "../../services/userService";
 
-interface registerValues {
+export interface registerValues {
   email: string;
   password: string;
   confirmPassword: string;
 }
 
 const Register = () => {
-  const [currentError, setCurrentError] = useState("");
   const { colorMode } = useColorMode();
-  const { login } = useContext(AuthContext);
   const initialValues: registerValues = {
     email: "",
     password: "",
     confirmPassword: "",
   };
-  const navigate = useNavigate();
 
   const handleSubmit = async (values: registerValues) => {
-    try {
-      console.log("what the ");
-      const response = await axiosInstance.post("register", values);
-      console.log("Success:", response);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response && error.response.data) {
-          console.error("Error:", error.response.data);
-          for (const key in error.response.data) {
-            if (error.response.data.hasOwnProperty(key)) {
-              toast.error(error.response.data[key].toString(), {
-                position: "bottom-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                transition: Bounce,
-              });
-            }
-          }
-        } else {
-          console.error("Error:", error.message);
-        }
-      }
-    }
-
-    // login(values.email);
-    // navigate("/");
+    userService.register(values);
   };
 
   return (
