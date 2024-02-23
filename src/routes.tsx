@@ -3,8 +3,9 @@ import Gallery from "./pages/Gallery";
 import HomePage from "./pages/HomePage";
 import Layout from "./pages/Layout";
 import Profile from "./pages/Profile";
-import Login from "./pages/auth/login";
 import AuthLayout from "./pages/auth/AuthLayout";
+import Register from "./pages/auth/Register";
+import Login from "./pages/auth/Login";
 
 const router = createBrowserRouter([
   {
@@ -18,9 +19,12 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/login",
+    path: "/",
     element: <AuthLayout />,
-    children: [{ index: true, element: <Login /> }],
+    children: [
+      { path: "login", element: <Login /> },
+      { path: "register", element: <Register /> },
+    ],
   },
 ]);
 
