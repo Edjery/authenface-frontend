@@ -10,7 +10,7 @@ const AuthLayout = () => {
       <Grid
         templateAreas={`"header header header" "leftSide main rightSide"`}
         gridTemplateRows={"90px 1fr"}
-        gridTemplateColumns={"700px 1fr 700px"}
+        gridTemplateColumns={"100px 1fr 100px"}
         rowGap="10"
       >
         <GridItem
@@ -20,11 +20,7 @@ const AuthLayout = () => {
         >
           <NavBar />
         </GridItem>
-        <GridItem
-          pl="2"
-          area={"main"}
-          bg={colorMode === "dark" ? "blue.800" : "blue.100"}
-        >
+        <GridItem pl="2" area={"main"} display="flex" justifyContent="center">
           <Outlet />
         </GridItem>
       </Grid>
