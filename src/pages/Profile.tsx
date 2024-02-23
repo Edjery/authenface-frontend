@@ -1,14 +1,12 @@
-import { Box, Heading } from "@chakra-ui/react";
-import { Navigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import { Box, Button, HStack, Heading } from "@chakra-ui/react";
 
 const Profile = () => {
-  const { user } = useAuth();
-  if (!user) return <Navigate to="/login" />;
-
   return (
     <Box mx={5} my={10}>
-      <Heading>Profile</Heading>
+      <HStack justify="space-between">
+        <Heading>Profile</Heading>
+        <Button colorScheme="red">Logout</Button>
+      </HStack>
     </Box>
   );
 };

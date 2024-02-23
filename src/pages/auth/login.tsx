@@ -6,28 +6,29 @@ import {
   Input,
   Text,
   VStack,
+  useColorMode,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
-import { useContext } from "react";
-import { AuthContext } from "../../provider/AuthProvider";
+import { useNavigate } from "react-router-dom";
 import loginSchema from "../../schema/loginSchema";
 
 interface loginValues {
-  username: string;
+  email: string;
   password: string;
 }
 
-const login = () => {
-  const { login } = useContext(AuthContext);
-  const initialValues: loginValues = { username: "", password: "" };
+const Login = () => {
+  const { colorMode } = useColorMode();
+  const initialValues: loginValues = { email: "", password: "" };
+  const navigate = useNavigate();
+
   const handleSubmit = (values: loginValues) => {
     console.log(values);
-    const jwtToken = "fake-jwt-token";
-    login(jwtToken);
+    navigate("/");
   };
 
   return (
-    <Box p={6} rounded="md">
+    <Box p={6} rounded="md" bg={colorMode === "dark" ? "blue.800" : "blue.100"}>
       <Formik
         initialValues={initialValues}
         validationSchema={loginSchema}
@@ -39,17 +40,17 @@ const login = () => {
         {({ isSubmitting, errors, touched }) => (
           <Form>
             <VStack spacing={5}>
-              <FormControl id="username">
-                <FormLabel>Username:</FormLabel>
+              <FormControl id="email">
+                <FormLabel>Email:</FormLabel>
                 <Field
                   as={Input}
-                  name="username"
+                  name="email"
                   type="text"
                   variant="filled"
-                  isInvalid={errors.username && touched.username}
+                  isInvalid={errors.email && touched.email}
                 />
                 <Text color="tomato">
-                  {errors.username && touched.username ? errors.username : ""}
+                  {errors.email && touched.email ? errors.email : ""}
                 </Text>
               </FormControl>
               <FormControl id="password">
@@ -81,4 +82,4 @@ const login = () => {
     </Box>
   );
 };
-export default login;
+export default Login;
