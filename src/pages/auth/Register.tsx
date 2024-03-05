@@ -8,29 +8,56 @@ import {
   VStack,
   useColorMode,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { Field, Form, Formik } from "formik";
-import { Bounce, toast } from "react-toastify";
+import useSignIn from "react-auth-kit/hooks/useSignIn";
 import registerSchema from "../../schema/registerSchema";
-import axiosInstance from "../../services/apiClient";
 import userService from "../../services/userService";
 
 export interface registerValues {
+  name: string;
   email: string;
   password: string;
   confirmPassword: string;
+  userImage: File | null;
+}
+interface dataRespo {
+  message: string;
+  token: string;
 }
 
 const Register = () => {
   const { colorMode } = useColorMode();
   const initialValues: registerValues = {
+    name: "",
     email: "",
     password: "",
     confirmPassword: "",
+    userImage: null,
   };
 
   const handleSubmit = async (values: registerValues) => {
-    userService.register(values);
+    console.log(values);
+
+    const response = await userService.register(values);
+    console.log(response);
+    if (response) {
+      handleSignIn(response);
+      console.log("successfully registered");
+    }
+  };
+
+  const handleSignIn = (response: any) => {
+    const signIn = useSignIn();
+    signIn({
+      auth: {
+        token: response.token,
+      },
+      userState: {
+        id: response.data.id,
+        email: response.data.email,
+        name: response.data.name,
+      },
+    });
   };
 
   return (
@@ -43,9 +70,22 @@ const Register = () => {
           handleSubmit(values);
         }}
       >
-        {({ errors, touched }) => (
+        {({ setFieldValue, errors, touched }) => (
           <Form>
             <VStack spacing={5}>
+              <FormControl id="name">
+                <FormLabel>Name:</FormLabel>
+                <Field
+                  as={Input}
+                  name="name"
+                  type="text"
+                  variant="filled"
+                  isInvalid={errors.name && touched.name}
+                />
+                <Text color="tomato">
+                  {errors.name && touched.name ? errors.name : ""}
+                </Text>
+              </FormControl>
               <FormControl id="email">
                 <FormLabel>Email:</FormLabel>
                 <Field
@@ -87,6 +127,25 @@ const Register = () => {
                     : ""}
                 </Text>
               </FormControl>
+              <FormControl id="userImage">
+                <FormLabel>User Image:</FormLabel>
+                <Input
+                  name="userImage"
+                  type="file"
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    const file = event.target.files && event.target.files[0];
+                    setFieldValue("userImage", file);
+                  }}
+                  variant="unstyled"
+                  required
+                />
+                <Text color="tomato">
+                  {errors.userImage && touched.userImage
+                    ? errors.userImage
+                    : ""}
+                </Text>
+              </FormControl>
+
               <Button mt={5} type="submit" colorScheme="blue" width="full">
                 Register
               </Button>

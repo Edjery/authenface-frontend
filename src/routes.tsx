@@ -6,15 +6,22 @@ import Profile from "./pages/Profile";
 import AuthLayout from "./pages/auth/AuthLayout";
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
+import AuthOutlet from "@auth-kit/react-router/AuthOutlet";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <AuthOutlet fallbackPath="/login" />,
     children: [
-      { path: "", element: <HomePage /> },
-      { path: "gallery", element: <Gallery /> },
-      { path: "profile", element: <Profile /> },
+      {
+        path: "/",
+        element: <Layout />,
+        children: [
+          { path: "", element: <HomePage /> },
+          { path: "gallery", element: <Gallery /> },
+          { path: "profile", element: <Profile /> },
+        ],
+      },
     ],
   },
 

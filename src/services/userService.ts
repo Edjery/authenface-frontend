@@ -57,21 +57,22 @@ class SnapshotService {
     }
   }
 
-  async register(newUser: registerValues): Promise<registerValues | undefined> {
+  async register(newUser: registerValues) {
     try {
-      const response = await axiosInstance.post<registerValues>(
-        "register",
-        newUser
-      );
+      const response = await axiosInstance.post("register", newUser, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       this.loadData();
-      return response.data;
+      return response;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response && error.response.data) {
-          console.error("Error:", error.response.data);
           for (const key in error.response.data) {
             if (error.response.data.hasOwnProperty(key)) {
-              toast.error(error.response.data[key].toString(), {
+              const errorMessage = `${key
+                .toString()
+                .toUpperCase()}: ${error.response.data[key].toString()}`;
+              toast.error(errorMessage, {
                 position: "bottom-center",
                 autoClose: 5000,
                 hideProgressBar: false,
