@@ -63,7 +63,7 @@ const Register = () => {
           handleSubmit(values);
         }}
       >
-        {({ setFieldValue, errors, touched }) => (
+        {({ setFieldValue, errors, touched, isSubmitting }) => (
           <Form>
             <VStack spacing={5}>
               <FormControl id="name">
@@ -139,7 +139,13 @@ const Register = () => {
                 </Text>
               </FormControl>
 
-              <Button mt={5} type="submit" colorScheme="blue" width="full">
+              <Button
+                mt={5}
+                type="submit"
+                colorScheme="blue"
+                width="full"
+                isDisabled={isSubmitting}
+              >
                 Register
               </Button>
             </VStack>

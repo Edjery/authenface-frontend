@@ -54,7 +54,7 @@ const Login = () => {
           handleSubmit(values);
         }}
       >
-        {({ isSubmitting, errors, touched }) => (
+        {({ errors, touched, isSubmitting }) => (
           <Form>
             <VStack spacing={5}>
               <FormControl id="email">
@@ -83,7 +83,13 @@ const Login = () => {
                   {errors.password && touched.password ? errors.password : ""}
                 </Text>
               </FormControl>
-              <Button mt={5} type="submit" colorScheme="blue" width="full">
+              <Button
+                mt={5}
+                type="submit"
+                colorScheme="blue"
+                width="full"
+                isDisabled={isSubmitting}
+              >
                 Login
               </Button>
             </VStack>
