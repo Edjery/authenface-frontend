@@ -1,10 +1,10 @@
 import axios from "axios";
-import { toast, Bounce } from "react-toastify";
-import { registerValues } from "../pages/auth/Register";
+import { Bounce, toast } from "react-toastify";
 import axiosInstance from "./apiClient";
 import IDataResponse from "./interfaces/IDataResponse";
 import IUser from "./interfaces/IUser";
-import { loginValues } from "../pages/auth/Login";
+import IRegisterValues from "../pages/auth/interface/IRegisterValues";
+import ILoginValues from "../pages/auth/interface/ILoginValues";
 
 const API_ENDPOINT = "/users/";
 
@@ -58,7 +58,7 @@ class SnapshotService {
     }
   }
 
-  async register(newUser: registerValues) {
+  async register(newUser: IRegisterValues) {
     try {
       const response = await axiosInstance.post("register", newUser, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -96,7 +96,7 @@ class SnapshotService {
     }
   }
 
-  async login(user: loginValues) {
+  async login(user: ILoginValues) {
     try {
       const response = await axiosInstance.post("login", user);
       this.loadData();
