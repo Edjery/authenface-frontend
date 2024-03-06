@@ -4,6 +4,7 @@ import { registerValues } from "../pages/auth/Register";
 import axiosInstance from "./apiClient";
 import IDataResponse from "./interfaces/IDataResponse";
 import IUser from "./interfaces/IUser";
+import { loginValues } from "../pages/auth/Login";
 
 const API_ENDPOINT = "/users/";
 
@@ -62,6 +63,42 @@ class SnapshotService {
       const response = await axiosInstance.post("register", newUser, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+      this.loadData();
+      return response;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response && error.response.data) {
+          for (const key in error.response.data) {
+            if (error.response.data.hasOwnProperty(key)) {
+              const errorMessage = `${key
+                .toString()
+                .toUpperCase()}: ${error.response.data[key].toString()}`;
+              toast.error(errorMessage, {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+              });
+            }
+          }
+        } else {
+          console.error("Error:", error.message);
+        }
+      } else {
+        console.error("Error in updating data:", error);
+        throw error;
+      }
+    }
+  }
+
+  async login(user: loginValues) {
+    try {
+      const response = await axiosInstance.post("login", user);
       this.loadData();
       return response;
     } catch (error) {

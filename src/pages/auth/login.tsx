@@ -9,22 +9,39 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
+import useSignIn from "react-auth-kit/hooks/useSignIn";
 import { useNavigate } from "react-router-dom";
 import loginSchema from "../../schema/loginSchema";
-
-interface loginValues {
-  email: string;
-  password: string;
-}
+import userService from "../../services/userService";
+import ILoginValues from "./interface/ILoginValues";
+import IUserData from "./interface/IUserData";
 
 const Login = () => {
+  const initialValues: ILoginValues = { email: "", password: "" };
   const { colorMode } = useColorMode();
-  const initialValues: loginValues = { email: "", password: "" };
   const navigate = useNavigate();
+  const signIn = useSignIn();
 
-  const handleSubmit = (values: loginValues) => {
-    console.log(values);
-    navigate("/");
+  const handleSignIn = (token: string, userData: IUserData) => {
+    signIn({
+      auth: {
+        token: token,
+      },
+      userState: {
+        id: userData.id,
+        email: userData.email,
+        name: userData.name,
+      },
+    });
+  };
+
+  const handleSubmit = async (values: ILoginValues) => {
+    const response = await userService.login(values);
+    if (response) {
+      handleSignIn(response.data.token, response.data.userData);
+      navigate("/");
+      console.log("login success");
+    }
   };
 
   return (
@@ -33,7 +50,7 @@ const Login = () => {
         initialValues={initialValues}
         validationSchema={loginSchema}
         onSubmit={(values) => {
-          console.log("values:", values);
+          // console.log("values:", values);
           handleSubmit(values);
         }}
       >
@@ -66,13 +83,7 @@ const Login = () => {
                   {errors.password && touched.password ? errors.password : ""}
                 </Text>
               </FormControl>
-              <Button
-                mt={5}
-                type="submit"
-                colorScheme="blue"
-                width="full"
-                isLoading={isSubmitting}
-              >
+              <Button mt={5} type="submit" colorScheme="blue" width="full">
                 Login
               </Button>
             </VStack>

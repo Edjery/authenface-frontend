@@ -10,54 +10,47 @@ import {
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
+import { useNavigate } from "react-router-dom";
 import registerSchema from "../../schema/registerSchema";
 import userService from "../../services/userService";
-
-export interface registerValues {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  userImage: File | null;
-}
-interface dataRespo {
-  message: string;
-  token: string;
-}
+import IRegisterValues from "./interface/IRegisterValues";
+import IUserData from "./interface/IUserData";
 
 const Register = () => {
-  const { colorMode } = useColorMode();
-  const initialValues: registerValues = {
+  const initialValues: IRegisterValues = {
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
     userImage: null,
   };
+  const { colorMode } = useColorMode();
+  const navigate = useNavigate();
+  const signIn = useSignIn();
 
-  const handleSubmit = async (values: registerValues) => {
+  const handleSignIn = (token: string, userData: IUserData) => {
+    signIn({
+      auth: {
+        token: token,
+      },
+      userState: {
+        id: userData.id,
+        email: userData.email,
+        name: userData.name,
+      },
+    });
+  };
+
+  const handleSubmit = async (values: IRegisterValues) => {
     console.log(values);
 
     const response = await userService.register(values);
     console.log(response);
     if (response) {
-      handleSignIn(response);
-      console.log("successfully registered");
+      handleSignIn(response.data.token, response.data.userData);
+      navigate("/");
+      console.log("login success");
     }
-  };
-
-  const handleSignIn = (response: any) => {
-    const signIn = useSignIn();
-    signIn({
-      auth: {
-        token: response.token,
-      },
-      userState: {
-        id: response.data.id,
-        email: response.data.email,
-        name: response.data.name,
-      },
-    });
   };
 
   return (
