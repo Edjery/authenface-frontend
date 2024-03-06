@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginSchema from "../../schema/loginSchema";
 import userService from "../../services/userService";
 import ILoginValues from "./interface/ILoginValues";
@@ -54,7 +54,7 @@ const Login = () => {
           handleSubmit(values);
         }}
       >
-        {({ errors, touched, isSubmitting }) => (
+        {({ errors, touched }) => (
           <Form>
             <VStack spacing={5}>
               <FormControl id="email">
@@ -83,19 +83,16 @@ const Login = () => {
                   {errors.password && touched.password ? errors.password : ""}
                 </Text>
               </FormControl>
-              <Button
-                mt={5}
-                type="submit"
-                colorScheme="blue"
-                width="full"
-                isDisabled={isSubmitting}
-              >
+              <Button mt={5} type="submit" colorScheme="blue" width="full">
                 Login
               </Button>
             </VStack>
           </Form>
         )}
       </Formik>
+      <Box mt={5} textDecoration={"underline"}>
+        <Link to="/login">Click here to register</Link>
+      </Box>
     </Box>
   );
 };

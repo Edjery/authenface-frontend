@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import registerSchema from "../../schema/registerSchema";
 import userService from "../../services/userService";
 import IRegisterValues from "./interface/IRegisterValues";
@@ -63,7 +63,7 @@ const Register = () => {
           handleSubmit(values);
         }}
       >
-        {({ setFieldValue, errors, touched, isSubmitting }) => (
+        {({ setFieldValue, errors, touched }) => (
           <Form>
             <VStack spacing={5}>
               <FormControl id="name">
@@ -139,19 +139,16 @@ const Register = () => {
                 </Text>
               </FormControl>
 
-              <Button
-                mt={5}
-                type="submit"
-                colorScheme="blue"
-                width="full"
-                isDisabled={isSubmitting}
-              >
+              <Button mt={5} type="submit" colorScheme="blue" width="full">
                 Register
               </Button>
             </VStack>
           </Form>
         )}
       </Formik>
+      <Box mt={5} textDecoration={"underline"}>
+        <Link to="/login">Already have an account? Sign in</Link>
+      </Box>
     </Box>
   );
 };
