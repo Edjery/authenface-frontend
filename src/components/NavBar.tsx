@@ -1,9 +1,8 @@
-import { Box, Button, HStack, Heading } from "@chakra-ui/react";
-import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
+import { Button, HStack, Heading } from "@chakra-ui/react";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
+import useSignOut from "react-auth-kit/hooks/useSignOut";
 import { Link, useNavigate } from "react-router-dom";
 import ColorModeSwitch from "./ColorModeSwitch";
-import useSignOut from "react-auth-kit/hooks/useSignOut";
-import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 
 const NavBar = () => {
   const isAuthenticated = useIsAuthenticated();
