@@ -72,7 +72,7 @@ const Websites = () => {
     setFormOpen(true);
   };
 
-  const handleEditClose = () => {
+  const handleWebsiteClose = () => {
     setCurrentWebsiteId(undefined);
     setFormOpen(false);
   };
@@ -162,7 +162,7 @@ const Websites = () => {
 
       <WebsiteFormModal
         isOpen={formOpen}
-        onClose={handleEditClose}
+        onClose={handleWebsiteClose}
         userId={userId}
         websiteId={currentWebsiteId}
         onSubmit={handleSubmit}
