@@ -28,11 +28,12 @@ class WebsiteService {
   }
 
   async getAllWithPage(
+    currentUserId: number | undefined,
     currentPage: number,
     pageSize: number
   ): Promise<IDataResponse> {
     const response = await axiosInstance.get(
-      `${API_ENDPOINT}?page=${currentPage}&pagesize=${pageSize}`
+      `${API_ENDPOINT}user/${currentUserId}?page=${currentPage}&pagesize=${pageSize}`
     );
     const data: IDataResponse = response.data;
     return data;

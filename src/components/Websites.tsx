@@ -1,42 +1,50 @@
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
+  HStack,
   Stack,
   Table,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import IUserData from "../pages/auth/interface/IUserData";
 import IDataResponse from "../services/interfaces/IDataResponse";
 import IWebsite from "../services/interfaces/IWebsite";
 import websiteService from "../services/websiteService";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import ConfirmationModal from "./ConfirmationModal";
 import WebsiteFormModal from "./WebsiteFormModal";
+import PageSizeInput from "./common/PageSizeInput";
 
 const Websites = () => {
+  const auth = useAuthUser<IUserData>();
+  const userId = auth?.id !== undefined ? auth.id : undefined;
+
   const [totalData, setTotalData] = useState<number>(0);
   const [hasNext, setHasNext] = useState<string | null>(null);
   const [hasPrev, setHasPrev] = useState<string | null>(null);
   const [data, setData] = useState<IWebsite[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [pageSize, setPageSize] = useState<number>(2);
 
+  const [pageSize, setPageSize] = useState<number>(10);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const [formOpen, setFormOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const [editOpen, setEditOpen] = useState(false);
-  const [currentUserId, setCurrentUserId] = useState<number | undefined>();
-  const [currentWebsiteId, setCurrentWebsiteId] = useState<
-    number | undefined
-  >();
-  const [page, releadPage] = useState(false);
+  const [currentWebsiteId, setCurrentWebsiteId] = useState<number | undefined>(
+    undefined
+  );
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data: IDataResponse = await websiteService.getAllWithPage(
+          userId,
           currentPage,
           pageSize
         );
@@ -53,58 +61,53 @@ const Websites = () => {
     };
 
     fetchData();
-  }, [currentPage, pageSize, page]);
+  }, [currentPage, pageSize, totalData]);
 
-  const handleWebsiteForm = (
-    userId: number | undefined,
-    websiteId: number | undefined
-  ) => {
-    setCurrentUserId(userId);
+  const handlePageSize = (_: string, value: number) => {
+    setPageSize(value);
+  };
+
+  const handleWebsiteForm = (websiteId: number | undefined) => {
     setCurrentWebsiteId(websiteId);
-    setEditOpen(true);
+    setFormOpen(true);
   };
 
   const handleEditClose = () => {
-    setCurrentUserId(undefined);
     setCurrentWebsiteId(undefined);
-    setEditOpen(false);
+    setFormOpen(false);
   };
 
   const handleSubmit = async (formData: IWebsite) => {
-    // Create new website
-    if (!formData.id) {
-      console.log("creating");
-      // TODO add api when the authentication/login has been implemented
-    }
-    // Edit website
-    else {
-      console.log("editing");
-      await websiteService.update(formData.id, formData);
-    }
-    releadPage(!page);
+    if (!formData.id) await websiteService.create(formData);
+    else await websiteService.update(formData.id, formData);
+    setTotalData((prev) => prev + 1);
   };
 
-  const handleDelete = () => {
+  const handleDeleteConfirmation = (websiteId: number | undefined) => {
+    setCurrentWebsiteId(websiteId);
+    setConfirmOpen(true);
+  };
+
+  const handleDeleteWebsite = async () => {
+    if (currentWebsiteId !== undefined)
+      await websiteService.remove(currentWebsiteId);
+    setCurrentWebsiteId(undefined);
     setConfirmOpen(false);
-    console.log("Delete Successfully");
-  };
-
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
-  };
-
-  const handlePrevPage = () => {
-    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+    setTotalData((prev) => prev - 1);
   };
 
   return (
     <>
-      <Box mx={10} mt={10}>
-        <Button
-          onClick={() => handleWebsiteForm(currentUserId, currentWebsiteId)}
-        >
-          Add Website
-        </Button>
+      <Box m="auto" mx={10} mt={10}>
+        <HStack justifyContent="space-between">
+          <Button onClick={() => handleWebsiteForm(currentWebsiteId)}>
+            Add Website
+          </Button>
+          <HStack>
+            <Text>Page Size</Text>
+            <PageSizeInput pageSize={pageSize} onChange={handlePageSize} />
+          </HStack>
+        </HStack>
 
         <Table variant="simple" my={10}>
           <Thead>
@@ -122,14 +125,14 @@ const Websites = () => {
                     <Button
                       leftIcon={<EditIcon />}
                       colorScheme="blue"
-                      onClick={() => handleWebsiteForm(item.user, item.id)}
+                      onClick={() => handleWebsiteForm(item.id)}
                     >
                       Edit
                     </Button>
                     <Button
                       leftIcon={<DeleteIcon />}
                       colorScheme="red"
-                      onClick={() => setConfirmOpen(true)}
+                      onClick={() => handleDeleteConfirmation(item.id)}
                     >
                       Delete
                     </Button>
@@ -140,18 +143,27 @@ const Websites = () => {
           </Tbody>
         </Table>
 
-        <Button onClick={handlePrevPage} isDisabled={hasPrev === null} mr={10}>
+        <Button
+          onClick={() =>
+            setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))
+          }
+          isDisabled={hasPrev === null}
+          mr={10}
+        >
           Previous Page
         </Button>
-        <Button onClick={handleNextPage} isDisabled={hasNext === null}>
+        <Button
+          onClick={() => setCurrentPage((prevPage) => prevPage + 1)}
+          isDisabled={hasNext === null}
+        >
           Next Page
         </Button>
       </Box>
 
       <WebsiteFormModal
-        isOpen={editOpen}
+        isOpen={formOpen}
         onClose={handleEditClose}
-        userId={currentUserId}
+        userId={userId}
         websiteId={currentWebsiteId}
         onSubmit={handleSubmit}
       />
@@ -159,7 +171,7 @@ const Websites = () => {
       <ConfirmationModal
         isOpen={confirmOpen}
         onClose={() => setConfirmOpen(false)}
-        onConfirm={handleDelete}
+        onConfirm={handleDeleteWebsite}
       />
     </>
   );
