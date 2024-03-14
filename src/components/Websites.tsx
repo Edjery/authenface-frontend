@@ -83,7 +83,7 @@ const Websites = () => {
     setTotalData((prev) => prev + 1);
   };
 
-  const handleDeleteConfirmation = (websiteId: number | undefined) => {
+  const handleDeleteConfirm = (websiteId: number | undefined) => {
     setCurrentWebsiteId(websiteId);
     setConfirmOpen(true);
   };
@@ -132,7 +132,7 @@ const Websites = () => {
                     <Button
                       leftIcon={<DeleteIcon />}
                       colorScheme="red"
-                      onClick={() => handleDeleteConfirmation(item.id)}
+                      onClick={() => handleDeleteConfirm(item.id)}
                     >
                       Delete
                     </Button>
