@@ -44,7 +44,7 @@ const AccountInfo = () => {
       }
     };
     fetchData();
-  });
+  }, []);
 
   return (
     <>
