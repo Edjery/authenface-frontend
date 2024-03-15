@@ -20,7 +20,7 @@ import IWebsite from "../services/interfaces/IWebsite";
 import websiteService from "../services/websiteService";
 import ConfirmationModal from "./ConfirmationModal";
 import WebsiteFormModal from "./WebsiteFormModal";
-import PageSizeInput from "./common/PageSizeInput";
+import ItemAmountInput from "./common/ItemAmountInput";
 
 const Websites = () => {
   const auth = useAuthUser<IUserData>();
@@ -105,7 +105,7 @@ const Websites = () => {
           </Button>
           <HStack>
             <Text>Page Size</Text>
-            <PageSizeInput pageSize={pageSize} onChange={handlePageSize} />
+            <ItemAmountInput pageSize={pageSize} onChange={handlePageSize} />
           </HStack>
         </HStack>
 

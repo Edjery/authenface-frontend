@@ -11,7 +11,7 @@ interface Props {
   onChange: (textValue: string, intValue: number) => void;
 }
 
-const PageSizeInput = ({ pageSize, onChange }: Props) => {
+const ItemAmountInput = ({ pageSize, onChange }: Props) => {
   return (
     <NumberInput value={pageSize} onChange={onChange} maxWidth={20}>
       <NumberInputField />
@@ -23,4 +23,4 @@ const PageSizeInput = ({ pageSize, onChange }: Props) => {
   );
 };
 
-export default PageSizeInput;
+export default ItemAmountInput;
