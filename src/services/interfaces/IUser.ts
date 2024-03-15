@@ -1,8 +1,8 @@
 interface IUser {
   id: number;
   email: string;
+  imaage: string;
   password: string;
-  userImage: File | null;
 }
 
 export default IUser;
