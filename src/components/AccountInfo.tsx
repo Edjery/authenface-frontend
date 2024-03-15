@@ -1,16 +1,4 @@
-import {
-  Box,
-  Grid,
-  GridItem,
-  Heading,
-  Image,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalOverlay,
-  Text,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { Box, Grid, GridItem, Heading, Image, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import IAuthUser from "../pages/auth/interface/IAuthUser";
@@ -19,6 +7,7 @@ import IUser from "../services/interfaces/IUser";
 import snapshotService from "../services/snapshotService";
 import userService from "../services/userService";
 import websiteService from "../services/websiteService";
+import ImageModal from "./ImageModal";
 
 const AccountInfo = () => {
   const auth = useAuthUser<IAuthUser>();
@@ -32,8 +21,6 @@ const AccountInfo = () => {
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
-
-  const [reloadPage, setReloadPage] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,9 +44,7 @@ const AccountInfo = () => {
       }
     };
     fetchData();
-  }, [reloadPage]);
-
-  const gridColumnCount = useBreakpointValue({ base: 1, sm: 3, md: 4, lg: 5 });
+  });
 
   return (
     <>
@@ -106,22 +91,13 @@ const AccountInfo = () => {
               </GridItem>
             </Grid>
 
-            <Modal isOpen={isOpen} onClose={closeModal}>
-              <ModalOverlay />
-              <ModalContent maxW="500">
-                <ModalBody>
-                  <Box w="100%" h="100%">
-                    <Image
-                      alt={userData.name}
-                      src={userData.image}
-                      w="100%"
-                      h="100%"
-                      objectFit="contain"
-                    />
-                  </Box>
-                </ModalBody>
-              </ModalContent>
-            </Modal>
+            <ImageModal
+              isOpen={isOpen}
+              onClose={closeModal}
+              alt={userData.name}
+              src={userData.image}
+              maxWidth="500px"
+            />
           </>
         ) : null}
       </Box>

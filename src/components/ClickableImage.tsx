@@ -1,12 +1,6 @@
-import {
-  Box,
-  Image,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalOverlay,
-} from "@chakra-ui/react";
+import { Image } from "@chakra-ui/react";
 import { useState } from "react";
+import ImageModal from "./ImageModal";
 
 interface Props {
   src: string;
@@ -28,22 +22,13 @@ const ClickableImage = ({ src, alt }: Props) => {
         cursor="pointer"
         maxWidth={20}
       />
-      <Modal isOpen={isOpen} onClose={closeModal}>
-        <ModalOverlay />
-        <ModalContent maxW="900">
-          <ModalBody>
-            <Box w="100%" h="100%">
-              <Image
-                src={src}
-                alt={alt}
-                w="100%"
-                h="100%"
-                objectFit="contain"
-              />
-            </Box>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      <ImageModal
+        isOpen={isOpen}
+        onClose={closeModal}
+        alt={alt}
+        src={src}
+        maxWidth="900px"
+      />
     </>
   );
 };
