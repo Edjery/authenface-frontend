@@ -14,7 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 import loginSchema from "../../schema/loginSchema";
 import userService from "../../services/userService";
 import ILoginValues from "./interface/ILoginValues";
-import IUserData from "./interface/IUserData";
+import IAuthUser from "./interface/IAuthUser";
 
 const Login = () => {
   const initialValues: ILoginValues = { email: "", password: "" };
@@ -22,7 +22,7 @@ const Login = () => {
   const navigate = useNavigate();
   const signIn = useSignIn();
 
-  const handleSignIn = (token: string, userData: IUserData) => {
+  const handleSignIn = (token: string, userData: IAuthUser) => {
     signIn({
       auth: {
         token: token,

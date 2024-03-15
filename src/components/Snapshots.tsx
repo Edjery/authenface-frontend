@@ -15,7 +15,7 @@ import {
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
-import IUserData from "../pages/auth/interface/IUserData";
+import IAuthUser from "../pages/auth/interface/IAuthUser";
 import IDataResponse from "../services/interfaces/IDataResponse";
 import ISnapshot from "../services/interfaces/ISnapshot";
 import snapshotService from "../services/snapshotService";
@@ -25,7 +25,7 @@ import ItemAmountInput from "./common/ItemAmountInput";
 import PaginationControls from "./common/PaginationControls";
 
 const Snapshots = () => {
-  const auth = useAuthUser<IUserData>();
+  const auth = useAuthUser<IAuthUser>();
   const userId = auth?.id !== undefined ? auth.id : undefined;
 
   const [totalData, setTotalData] = useState<number>(0);

@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
-import IUserData from "../pages/auth/interface/IUserData";
+import IAuthUser from "../pages/auth/interface/IAuthUser";
 import IDataResponse from "../services/interfaces/IDataResponse";
 import IWebsite from "../services/interfaces/IWebsite";
 import websiteService from "../services/websiteService";
@@ -24,7 +24,7 @@ import ItemAmountInput from "./common/ItemAmountInput";
 import PaginationControls from "./common/PaginationControls";
 
 const Websites = () => {
-  const auth = useAuthUser<IUserData>();
+  const auth = useAuthUser<IAuthUser>();
   const userId = auth?.id !== undefined ? auth.id : undefined;
 
   const [totalData, setTotalData] = useState<number>(0);

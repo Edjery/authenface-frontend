@@ -14,7 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 import registerSchema from "../../schema/registerSchema";
 import userService from "../../services/userService";
 import IRegisterValues from "./interface/IRegisterValues";
-import IUserData from "./interface/IUserData";
+import IAuthUser from "./interface/IAuthUser";
 
 const Register = () => {
   const initialValues: IRegisterValues = {
@@ -28,7 +28,7 @@ const Register = () => {
   const navigate = useNavigate();
   const signIn = useSignIn();
 
-  const handleSignIn = (token: string, userData: IUserData) => {
+  const handleSignIn = (token: string, userData: IAuthUser) => {
     signIn({
       auth: {
         token: token,

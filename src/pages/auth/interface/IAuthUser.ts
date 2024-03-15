@@ -1,7 +1,7 @@
-interface IUserData {
+interface IAuthUser {
   id: number;
   email: string;
   name: string;
 }
 
-export default IUserData;
+export default IAuthUser;
