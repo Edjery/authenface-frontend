@@ -91,7 +91,7 @@ const Login = () => {
         )}
       </Formik>
       <Box mt={5} textDecoration={"underline"}>
-        <Link to="/login">Click here to register</Link>
+        <Link to="/register">Click here to register</Link>
       </Box>
     </Box>
   );
