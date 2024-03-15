@@ -21,6 +21,7 @@ import websiteService from "../services/websiteService";
 import ConfirmationModal from "./ConfirmationModal";
 import WebsiteFormModal from "./WebsiteFormModal";
 import ItemAmountInput from "./common/ItemAmountInput";
+import PaginationControls from "./common/PaginationControls";
 
 const Websites = () => {
   const auth = useAuthUser<IUserData>();
@@ -96,6 +97,14 @@ const Websites = () => {
     setTotalData((prev) => prev - 1);
   };
 
+  const handleNext = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrev = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
   return (
     <>
       <Box m="auto" mx={10} mt={10}>
@@ -143,21 +152,15 @@ const Websites = () => {
           </Tbody>
         </Table>
 
-        <Button
-          onClick={() =>
-            setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))
-          }
-          isDisabled={hasPrev === null}
-          mr={10}
-        >
-          Previous Page
-        </Button>
-        <Button
-          onClick={() => setCurrentPage((prevPage) => prevPage + 1)}
-          isDisabled={hasNext === null}
-        >
-          Next Page
-        </Button>
+        <PaginationControls
+          onNext={handleNext}
+          onPrev={handlePrev}
+          hasNext={hasNext}
+          hasPrev={hasPrev}
+          page={currentPage}
+          pageSize={pageSize}
+          totalCount={totalData}
+        />
       </Box>
 
       <WebsiteFormModal

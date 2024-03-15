@@ -22,6 +22,7 @@ import snapshotService from "../services/snapshotService";
 import ClickableImage from "./ClickableImage";
 import ConfirmationModal from "./ConfirmationModal";
 import ItemAmountInput from "./common/ItemAmountInput";
+import PaginationControls from "./common/PaginationControls";
 
 const Snapshots = () => {
   const auth = useAuthUser<IUserData>();
@@ -83,6 +84,14 @@ const Snapshots = () => {
     return dayjs(dateString).format("MMMM DD YYYY @ hh:mm A");
   };
 
+  const handleNext = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrev = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
   return (
     <>
       <Box m="auto" mx={10} mt={10}>
@@ -123,24 +132,15 @@ const Snapshots = () => {
             ))}
           </Tbody>
         </Table>
-
-        <Button
-          onClick={() => {
-            setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
-          }}
-          isDisabled={hasPrev === null}
-          mr={10}
-        >
-          Previous Page
-        </Button>
-        <Button
-          onClick={() => {
-            setCurrentPage((prevPage) => prevPage + 1);
-          }}
-          isDisabled={hasNext === null}
-        >
-          Next Page
-        </Button>
+        <PaginationControls
+          onNext={handleNext}
+          onPrev={handlePrev}
+          hasNext={hasNext}
+          hasPrev={hasPrev}
+          page={currentPage}
+          pageSize={pageSize}
+          totalCount={totalData}
+        />
       </Box>
 
       <ConfirmationModal
