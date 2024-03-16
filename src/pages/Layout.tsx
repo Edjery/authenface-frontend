@@ -9,9 +9,15 @@ const Layout = () => {
   return (
     <>
       <Grid
-        templateAreas={`"header header header header" "leftSide nav main rightSide"`}
+        templateAreas={{
+          base: `"header header header " "lside nav rside" "lside main rside"`,
+          lg: `"header header header header" "lside nav main rside"`,
+        }}
         gridTemplateRows={"90px 1fr"}
-        gridTemplateColumns={"150px 150px 1fr 150px"}
+        gridTemplateColumns={{
+          base: "20px 1fr 20px",
+          lg: "150px 150px 1fr 150px",
+        }}
         rowGap="10"
         columnGap="1"
       >
