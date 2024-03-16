@@ -7,6 +7,7 @@ import ILoginValues from "../pages/auth/interface/ILoginValues";
 import IAccountValues from "../pages/auth/interface/IRegisterValues";
 import axiosInstance from "./apiClient";
 import IUser from "./interfaces/IUser";
+import popUpSuccess from "../helpers/popUpSuccess";
 
 const API_ENDPOINT = "/users/";
 
@@ -86,6 +87,7 @@ class UserService {
       );
       if ((response.status = 200)) {
         const updatedData = response.data;
+        popUpSuccess("Successfully Edited");
         return updatedData;
       } else {
         console.error("Error: No data with that ID");
