@@ -14,13 +14,13 @@ import { Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { useNavigate } from "react-router-dom";
-import { Bounce, toast } from "react-toastify";
 import IAuthUser from "../pages/auth/interface/IAuthUser";
 import IUser from "../services/interfaces/IUser";
 import userService from "../services/userService";
 import InactiveModal from "./common/InactiveModal";
 
 import * as yup from "yup";
+import PopUpError from "../helpers/PopUpError";
 
 // TODO: Cohesion
 const accountInfoSchema = yup.object({
@@ -187,24 +187,14 @@ const EditProfile = () => {
           )}
         </Formik>
       ) : null}
-      {/* TODO: toast refactor */}
+
       {data !== undefined && accountPass ? (
         <Formik
           initialValues={accountPass}
           validationSchema={accountPassSchema}
           onSubmit={(values) => {
             if (values.password != values.confirmPassword) {
-              toast.error("Password did not match", {
-                position: "bottom-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                transition: Bounce,
-              });
+              PopUpError("Password did not match");
             } else {
               handleSubmit(values);
             }

@@ -1,10 +1,10 @@
 import axios from "axios";
-import { Bounce, toast } from "react-toastify";
 import {
   IAccountImg,
   IAccountInfo,
   IAccountPass,
 } from "../components/EditProfile";
+import PopUpError from "../helpers/PopUpError";
 import ILoginValues from "../pages/auth/interface/ILoginValues";
 import IAccountValues from "../pages/auth/interface/IRegisterValues";
 import axiosInstance from "./apiClient";
@@ -31,17 +31,7 @@ class UserService {
               const errorMessage = `${key
                 .toString()
                 .toUpperCase()}: ${error.response.data[key].toString()}`;
-              toast.error(errorMessage, {
-                position: "bottom-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                transition: Bounce,
-              });
+              PopUpError(errorMessage);
             }
           }
         } else {
@@ -66,17 +56,7 @@ class UserService {
               const errorMessage = `${key
                 .toString()
                 .toUpperCase()}: ${error.response.data[key].toString()}`;
-              toast.error(errorMessage, {
-                position: "bottom-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                transition: Bounce,
-              });
+              PopUpError(errorMessage);
             }
           }
         } else {
@@ -122,17 +102,7 @@ class UserService {
               const errorMessage = `${key
                 .toString()
                 .toUpperCase()}: ${error.response.data[key].toString()}`;
-              toast.error(errorMessage, {
-                position: "bottom-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                transition: Bounce,
-              });
+              PopUpError(errorMessage);
             }
           }
         } else {
