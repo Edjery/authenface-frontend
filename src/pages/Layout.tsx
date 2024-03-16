@@ -1,5 +1,6 @@
 import { Grid, GridItem, useColorMode } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
+import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import SideBar from "../components/SideBar";
 
@@ -10,8 +11,8 @@ const Layout = () => {
     <>
       <Grid
         templateAreas={{
-          base: `"header header header " "lside nav rside" "lside main rside"`,
-          lg: `"header header header header" "lside nav main rside"`,
+          base: `"header header header " "lside sidebar rside" "lside main rside" "footer footer footer"`,
+          lg: `"header header header header" "lside sidebar main rside" "footer footer footer footer"`,
         }}
         gridTemplateRows={"90px 1fr"}
         gridTemplateColumns={{
@@ -30,10 +31,18 @@ const Layout = () => {
         </GridItem>
         <GridItem
           pl="2"
-          area={"nav"}
+          minHeight="80vh"
+          area={"sidebar"}
           bg={colorMode === "dark" ? "blue.800" : "blue.100"}
         >
           <SideBar />
+        </GridItem>
+        <GridItem
+          pl="2"
+          area={"footer"}
+          bg={colorMode === "dark" ? "blue.800" : "blue.100"}
+        >
+          <Footer />
         </GridItem>
         <GridItem
           pl="2"
