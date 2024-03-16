@@ -1,4 +1,4 @@
-interface IRegisterValues {
+interface IAccountValues {
   name: string;
   email: string;
   password: string;
@@ -6,4 +6,4 @@ interface IRegisterValues {
   userImage: File | null;
 }
 
-export default IRegisterValues;
+export default IAccountValues;

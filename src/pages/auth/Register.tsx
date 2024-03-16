@@ -13,11 +13,11 @@ import useSignIn from "react-auth-kit/hooks/useSignIn";
 import { Link, useNavigate } from "react-router-dom";
 import registerSchema from "../../schema/registerSchema";
 import userService from "../../services/userService";
-import IRegisterValues from "./interface/IRegisterValues";
+import IAccountValues from "./interface/IRegisterValues";
 import IAuthUser from "./interface/IAuthUser";
 
 const Register = () => {
-  const initialValues: IRegisterValues = {
+  const initialValues: IAccountValues = {
     name: "",
     email: "",
     password: "",
@@ -41,11 +41,8 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = async (values: IRegisterValues) => {
-    console.log(values);
-
+  const handleSubmit = async (values: IAccountValues) => {
     const response = await userService.register(values);
-    console.log(response);
     if (response) {
       handleSignIn(response.data.token, response.data.userData);
       navigate("/");
@@ -59,7 +56,6 @@ const Register = () => {
         initialValues={initialValues}
         validationSchema={registerSchema}
         onSubmit={(values) => {
-          console.log("values:", values);
           handleSubmit(values);
         }}
       >
