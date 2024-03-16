@@ -49,13 +49,10 @@ const Snapshots = () => {
           currentPage,
           pageSize
         );
-
         setTotalData(data.count);
         setHasNext(data.next);
         setHasPrev(data.previous);
         setData(data.results);
-
-        console.log("Successfully Fetched Data");
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -132,15 +129,18 @@ const Snapshots = () => {
             ))}
           </Tbody>
         </Table>
-        <PaginationControls
-          onNext={handleNext}
-          onPrev={handlePrev}
-          hasNext={hasNext}
-          hasPrev={hasPrev}
-          page={currentPage}
-          pageSize={pageSize}
-          totalCount={totalData}
-        />
+
+        {totalData === 0 ? null : (
+          <PaginationControls
+            onNext={handleNext}
+            onPrev={handlePrev}
+            hasNext={hasNext}
+            hasPrev={hasPrev}
+            page={currentPage}
+            pageSize={pageSize}
+            totalCount={totalData}
+          />
+        )}
       </Box>
 
       <ConfirmationModal
