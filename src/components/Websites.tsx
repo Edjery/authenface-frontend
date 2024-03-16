@@ -44,15 +44,14 @@ const Websites = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data: IDataResponse = await websiteService.getAllWithPage(
-          userId,
-          currentPage,
-          pageSize
-        );
-        setTotalData(data.count);
-        setHasNext(data.next);
-        setHasPrev(data.previous);
-        setData(data.results);
+        const data: IDataResponse | undefined =
+          await websiteService.getAllWithPage(userId, currentPage, pageSize);
+        if (data) {
+          setTotalData(data.count);
+          setHasNext(data.next);
+          setHasPrev(data.previous);
+          setData(data.results);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }

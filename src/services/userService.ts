@@ -1,14 +1,14 @@
 import axios from "axios";
 import { Bounce, toast } from "react-toastify";
-import ILoginValues from "../pages/auth/interface/ILoginValues";
-import IAccountValues from "../pages/auth/interface/IRegisterValues";
-import axiosInstance from "./apiClient";
-import IUser from "./interfaces/IUser";
 import {
   IAccountImg,
   IAccountInfo,
   IAccountPass,
 } from "../components/EditProfile";
+import ILoginValues from "../pages/auth/interface/ILoginValues";
+import IAccountValues from "../pages/auth/interface/IRegisterValues";
+import axiosInstance from "./apiClient";
+import IUser from "./interfaces/IUser";
 
 const API_ENDPOINT = "/users/";
 

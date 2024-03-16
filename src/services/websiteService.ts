@@ -31,12 +31,16 @@ class WebsiteService {
     currentUserId: number | undefined,
     currentPage: number,
     pageSize: number
-  ): Promise<IDataResponse> {
+  ): Promise<IDataResponse | undefined> {
     const response = await axiosInstance.get(
       `${API_ENDPOINT}user/${currentUserId}?page=${currentPage}&pagesize=${pageSize}`
     );
-    const data: IDataResponse = response.data;
-    return data;
+    if ((response.status = 200)) {
+      const data: IDataResponse = response.data;
+      return data;
+    } else {
+      console.error("Error: No data with that ID");
+    }
   }
 
   get(id: number): IWebsite | undefined {

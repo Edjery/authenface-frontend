@@ -22,6 +22,7 @@ import InactiveModal from "./common/InactiveModal";
 
 import * as yup from "yup";
 
+// TODO: Cohesion
 const accountInfoSchema = yup.object({
   name: yup.string().required("Required"),
   email: yup.string().email("Invalid email").required("Required"),
@@ -110,7 +111,6 @@ const EditProfile = () => {
   const handleSubmit = async (
     values: IAccountInfo | IAccountPass | IAccountImg
   ) => {
-    console.log("values", values);
     const response = await userService.update(userId, values);
     if (response) navigate("/profile/edit");
   };
@@ -123,7 +123,6 @@ const EditProfile = () => {
           initialValues={accountInfo}
           validationSchema={accountInfoSchema}
           onSubmit={(values) => {
-            console.log("values:", values);
             handleSubmit(values);
             setEditInfo(!editInfo);
           }}
@@ -188,13 +187,12 @@ const EditProfile = () => {
           )}
         </Formik>
       ) : null}
-
+      {/* TODO: toast refactor */}
       {data !== undefined && accountPass ? (
         <Formik
           initialValues={accountPass}
           validationSchema={accountPassSchema}
           onSubmit={(values) => {
-            console.log("values:", values);
             if (values.password != values.confirmPassword) {
               toast.error("Password did not match", {
                 position: "bottom-center",
@@ -286,7 +284,6 @@ const EditProfile = () => {
           initialValues={accountImg}
           validationSchema={accountImgSchema}
           onSubmit={(values) => {
-            console.log("values:", values);
             handleSubmit(values);
             setEditImg(!editImg);
           }}

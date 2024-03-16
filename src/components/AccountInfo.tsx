@@ -2,7 +2,6 @@ import { Box, Grid, GridItem, Heading, Image, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import IAuthUser from "../pages/auth/interface/IAuthUser";
-import IDataResponse from "../services/interfaces/IDataResponse";
 import IUser from "../services/interfaces/IUser";
 import snapshotService from "../services/snapshotService";
 import userService from "../services/userService";
@@ -26,18 +25,13 @@ const AccountInfo = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userData: IUser = await userService.get(userId);
-        const websiteData: IDataResponse = await websiteService.getAllWithPage(
-          userId,
-          1,
-          1
-        );
-        const snapshotData: IDataResponse =
-          await snapshotService.getAllWithPage(userId, 1, 1);
+        const userData = await userService.get(userId);
+        const websiteData = await websiteService.getAllWithPage(userId, 1, 1);
+        const snapshotData = await snapshotService.getAllWithPage(userId, 1, 1);
 
-        setUserData(userData);
-        setWebsiteCount(websiteData.count);
-        setSnapshotCount(snapshotData.count);
+        if (userData) setUserData(userData);
+        if (websiteData) setWebsiteCount(websiteData.count);
+        if (snapshotData) setSnapshotCount(snapshotData.count);
 
         console.log("Successfully Fetched Data");
       } catch (error) {
