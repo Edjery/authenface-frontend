@@ -9,10 +9,11 @@ import userService from "../services/userService";
 import websiteService from "../services/websiteService";
 import ImageModal from "./ImageModal";
 
+const imageSize = 40;
+
 const AccountInfo = () => {
   const auth = useAuthUser<IAuthUser>();
   const userId = auth?.id !== undefined ? auth.id : undefined;
-  const imageSize = 40;
 
   const [userData, setUserData] = useState<IUser>();
   const [websiteCount, setWebsiteCount] = useState<number>();
@@ -59,31 +60,38 @@ const AccountInfo = () => {
                   "image bottomLeft bottomRight"`,
               }}
               gridTemplateColumns={{
-                lg: "150px",
+                base: "1fr",
+                md: "200px",
+                lg: "200px 500px 1fr",
               }}
               gap={5}
             >
               <GridItem area={"image"}>
-                <Image
-                  alt={userData.name}
-                  src={userData.image}
-                  boxSize={imageSize}
-                  objectFit="cover"
-                  borderRadius={30}
-                  onClick={openModal}
-                  cursor="pointer"
-                />
+                <Box>
+                  <Image
+                    alt={userData.name}
+                    src={userData.image}
+                    boxSize={imageSize}
+                    objectFit="cover"
+                    borderRadius={30}
+                    onClick={openModal}
+                    cursor="pointer"
+                  />
+                </Box>
               </GridItem>
+
               <GridItem area={"topLeft "}>
-                <Text>Name: </Text>
+                <Text>Name:</Text>
                 <Heading>{userData.name}</Heading>
               </GridItem>
+              <GridItem area={"bottomLeft"}>
+                <Text>Email: </Text>
+                <Heading>{userData.email}</Heading>
+              </GridItem>
+
               <GridItem area={"topRight"}>
                 <Text>Website/s Count: </Text>
                 <Heading>{websiteCount}</Heading>
-              </GridItem>
-              <GridItem area={"bottomLeft"}>
-                <Text>Email: </Text> <Heading>{userData.email}</Heading>
               </GridItem>
               <GridItem area={"bottomRight"}>
                 <Text>Snapshot/s Count: </Text>
