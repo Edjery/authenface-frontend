@@ -22,7 +22,11 @@ const NavBar = () => {
       <HStack>
         <ColorModeSwitch />
         {isAuthenticated() && (
-          <Button onClick={handleLogout} colorScheme="red" mx={10}>
+          <Button
+            onClick={handleLogout}
+            colorScheme="red"
+            mx={{ base: 1, sm: 10 }}
+          >
             Logout
           </Button>
         )}
