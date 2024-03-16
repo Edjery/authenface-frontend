@@ -1,6 +1,7 @@
 import { EditIcon } from "@chakra-ui/icons";
 import { Box, Button, HStack, Heading } from "@chakra-ui/react";
 import AccountInfo from "../components/AccountInfo";
+import InactiveModal from "../components/InactiveModal";
 
 const Profile = () => {
   return (
@@ -12,6 +13,7 @@ const Profile = () => {
         </Button>
       </HStack>
       <AccountInfo />
+      <InactiveModal />
     </Box>
   );
 };

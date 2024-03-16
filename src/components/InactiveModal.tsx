@@ -1,22 +1,31 @@
-import React from "react";
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalOverlay,
+  Text,
+} from "@chakra-ui/react";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
+import { useNavigate } from "react-router-dom";
+
+const maxWidth = 600;
 
 const InactiveModal = () => {
   const isAuthenticated = useIsAuthenticated();
-  const signOut = useSignOut();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    signOut();
     navigate("/login");
   };
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={!isAuthenticated()} onClose={handleLogout}>
       <ModalOverlay />
       <ModalContent maxW={maxWidth}>
         <ModalBody>
-          <Box w="100%" h="100%">
-            <Image src={src} alt={alt} w="100%" h="100%" objectFit="contain" />
-          </Box>
+          <Text>
+            Oops! It seems you've been signed out due to inactivity. Please sign
+            in again to continue using the application.
+          </Text>
         </ModalBody>
       </ModalContent>
     </Modal>
