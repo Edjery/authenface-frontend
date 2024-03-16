@@ -82,13 +82,16 @@ class UserService {
     }
   }
 
-  async get(id: number | undefined) {
+  async get(id: number | undefined): Promise<IUser> {
     const response = await axiosInstance.get(`${API_ENDPOINT}${id}/`);
     const data: IUser = response.data;
     return data;
   }
 
-  async update(id: number, newUser: IRegisterValues): Promise<IUser | null> {
+  async update(
+    id: number | undefined,
+    newUser: IRegisterValues
+  ): Promise<IUser | null> {
     try {
       const response = await axiosInstance.put<IUser>(
         `${API_ENDPOINT}${id}`,
