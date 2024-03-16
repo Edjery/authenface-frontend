@@ -14,64 +14,17 @@ import { Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { useNavigate } from "react-router-dom";
+import popUpError from "../helpers/popUpError";
 import IAuthUser from "../pages/auth/interface/IAuthUser";
+import accountImgSchema from "../schema/accountImgSchema";
+import accountInfoSchema from "../schema/accountInfoSchema";
+import accountPassSchema from "../schema/accountPassSchema";
 import IUser from "../services/interfaces/IUser";
 import userService from "../services/userService";
+import IAccountImg from "./Interface/IAccountImg";
+import IAccountInfo from "./Interface/IAccountInfo";
+import IAccountPass from "./Interface/IAccountPass";
 import InactiveModal from "./common/InactiveModal";
-
-import * as yup from "yup";
-import PopUpError from "../helpers/PopUpError";
-
-// TODO: Cohesion
-const accountInfoSchema = yup.object({
-  name: yup.string().required("Required"),
-  email: yup.string().email("Invalid email").required("Required"),
-});
-
-const accountPassSchema = yup.object({
-  password: yup.string().required("Required"),
-  confirmPassword: yup.string().required("Required"),
-});
-
-const accountImgSchema = yup.object({
-  image: yup.mixed().required("Please upload an image"),
-});
-
-export function convertImageUrlToFile(imageUrl: string): Promise<File> {
-  return new Promise<File>((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.responseType = "blob";
-    xhr.open("GET", imageUrl);
-    xhr.onload = function () {
-      if (xhr.status === 200) {
-        const file = new File([xhr.response], "image.png", {
-          type: "image/png",
-        });
-        resolve(file);
-      } else {
-        reject(new Error("Failed to fetch image"));
-      }
-    };
-    xhr.onerror = function () {
-      reject(new Error("Network error"));
-    };
-    xhr.send();
-  });
-}
-
-export interface IAccountInfo {
-  name: string;
-  email: string;
-}
-
-export interface IAccountPass {
-  password: string;
-  confirmPassword: string;
-}
-
-export interface IAccountImg {
-  image: File | null;
-}
 
 const EditProfile = () => {
   const auth = useAuthUser<IAuthUser>();
@@ -194,7 +147,7 @@ const EditProfile = () => {
           validationSchema={accountPassSchema}
           onSubmit={(values) => {
             if (values.password != values.confirmPassword) {
-              PopUpError("Password did not match");
+              popUpError("Password did not match");
             } else {
               handleSubmit(values);
             }

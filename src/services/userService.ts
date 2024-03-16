@@ -1,10 +1,8 @@
 import axios from "axios";
-import {
-  IAccountImg,
-  IAccountInfo,
-  IAccountPass,
-} from "../components/EditProfile";
-import PopUpError from "../helpers/PopUpError";
+import IAccountImg from "../components/Interface/IAccountImg";
+import IAccountInfo from "../components/Interface/IAccountInfo";
+import IAccountPass from "../components/Interface/IAccountPass";
+import popUpError from "../helpers/popUpError";
 import ILoginValues from "../pages/auth/interface/ILoginValues";
 import IAccountValues from "../pages/auth/interface/IRegisterValues";
 import axiosInstance from "./apiClient";
@@ -13,7 +11,6 @@ import IUser from "./interfaces/IUser";
 const API_ENDPOINT = "/users/";
 
 // TODO Add update pop ups
-// Refactor pop ups
 class UserService {
   constructor() {}
 
@@ -31,7 +28,7 @@ class UserService {
               const errorMessage = `${key
                 .toString()
                 .toUpperCase()}: ${error.response.data[key].toString()}`;
-              PopUpError(errorMessage);
+              popUpError(errorMessage);
             }
           }
         } else {
@@ -56,7 +53,7 @@ class UserService {
               const errorMessage = `${key
                 .toString()
                 .toUpperCase()}: ${error.response.data[key].toString()}`;
-              PopUpError(errorMessage);
+              popUpError(errorMessage);
             }
           }
         } else {
@@ -102,7 +99,7 @@ class UserService {
               const errorMessage = `${key
                 .toString()
                 .toUpperCase()}: ${error.response.data[key].toString()}`;
-              PopUpError(errorMessage);
+              popUpError(errorMessage);
             }
           }
         } else {

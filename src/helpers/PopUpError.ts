@@ -1,6 +1,6 @@
 import { Bounce, toast } from "react-toastify";
 
-const PopUpError = (errorMessage: string) => {
+const popUpError = (errorMessage: string) => {
   toast.error(errorMessage, {
     position: "bottom-center",
     autoClose: 3000,
@@ -14,4 +14,4 @@ const PopUpError = (errorMessage: string) => {
   });
 };
 
-export default PopUpError;
+export default popUpError;
