@@ -107,7 +107,7 @@ const Websites = () => {
 
   return (
     <>
-      <Box m="auto" mx={10} mt={10}>
+      <Box m="auto" mx={{ base: 5, sm: 10 }} mt={10}>
         <HStack justifyContent="space-between">
           <Button onClick={() => handleWebsiteForm(currentWebsiteId)}>
             Add Website
@@ -130,7 +130,11 @@ const Websites = () => {
               <Tr key={item.id}>
                 <Td>{item.name}</Td>
                 <Td>
-                  <Stack direction="row" spacing={10} justify={"flex-end"}>
+                  <Stack
+                    direction="row"
+                    spacing={{ base: 5, sm: 10 }}
+                    justify={"flex-end"}
+                  >
                     <Button
                       leftIcon={<EditIcon />}
                       colorScheme="blue"
