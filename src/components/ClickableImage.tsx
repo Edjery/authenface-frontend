@@ -1,6 +1,6 @@
 import { Image } from "@chakra-ui/react";
 import { useState } from "react";
-import ImageModal from "./ImageModal";
+import ImageModal from "./common/ImageModal";
 
 interface Props {
   src: string;

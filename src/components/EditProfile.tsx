@@ -18,7 +18,7 @@ import { Bounce, toast } from "react-toastify";
 import IAuthUser from "../pages/auth/interface/IAuthUser";
 import IUser from "../services/interfaces/IUser";
 import userService from "../services/userService";
-import InactiveModal from "./InactiveModal";
+import InactiveModal from "./common/InactiveModal";
 
 import * as yup from "yup";
 

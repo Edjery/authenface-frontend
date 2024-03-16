@@ -20,7 +20,7 @@ import IDataResponse from "../services/interfaces/IDataResponse";
 import ISnapshot from "../services/interfaces/ISnapshot";
 import snapshotService from "../services/snapshotService";
 import ClickableImage from "./ClickableImage";
-import ConfirmationModal from "./ConfirmationModal";
+import ConfirmationModal from "./common/ConfirmationModal";
 import ItemAmountInput from "./common/ItemAmountInput";
 import PaginationControls from "./common/PaginationControls";
 

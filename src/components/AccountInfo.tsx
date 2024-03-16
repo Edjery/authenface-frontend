@@ -7,7 +7,7 @@ import IUser from "../services/interfaces/IUser";
 import snapshotService from "../services/snapshotService";
 import userService from "../services/userService";
 import websiteService from "../services/websiteService";
-import ImageModal from "./ImageModal";
+import ImageModal from "./common/ImageModal";
 
 const imageSize = 40;
 

@@ -2,7 +2,7 @@ import { EditIcon } from "@chakra-ui/icons";
 import { Box, Button, HStack, Heading } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import AccountInfo from "../components/AccountInfo";
-import InactiveModal from "../components/InactiveModal";
+import InactiveModal from "../components/common/InactiveModal";
 
 const Profile = () => {
   const navigate = useNavigate();

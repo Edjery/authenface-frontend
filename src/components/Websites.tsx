@@ -18,7 +18,7 @@ import IAuthUser from "../pages/auth/interface/IAuthUser";
 import IDataResponse from "../services/interfaces/IDataResponse";
 import IWebsite from "../services/interfaces/IWebsite";
 import websiteService from "../services/websiteService";
-import ConfirmationModal from "./ConfirmationModal";
+import ConfirmationModal from "./common/ConfirmationModal";
 import WebsiteFormModal from "./WebsiteFormModal";
 import ItemAmountInput from "./common/ItemAmountInput";
 import PaginationControls from "./common/PaginationControls";

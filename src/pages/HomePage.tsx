@@ -1,6 +1,6 @@
 import { Box, Heading } from "@chakra-ui/react";
 import Websites from "../components/Websites";
-import InactiveModal from "../components/InactiveModal";
+import InactiveModal from "../components/common/InactiveModal";
 
 const HomePage = () => {
   return (
