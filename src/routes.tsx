@@ -1,6 +1,6 @@
 import AuthOutlet from "@auth-kit/react-router/AuthOutlet";
 import { createBrowserRouter } from "react-router-dom";
-import EditProfile from "./components/EditProfile";
+import EditProfile from "./pages/EditProfile";
 import Gallery from "./pages/Gallery";
 import HomePage from "./pages/HomePage";
 import Layout from "./pages/Layout";
