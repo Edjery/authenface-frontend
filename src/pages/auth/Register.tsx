@@ -27,7 +27,7 @@ const Register = () => {
   const { colorMode } = useColorMode();
   const navigate = useNavigate();
   const signIn = useSignIn();
-  // TODO: Cohesion
+  // TODO: handle error fo error connection
   const handleSignIn = (token: string, userData: IAuthUser) => {
     signIn({
       auth: {
