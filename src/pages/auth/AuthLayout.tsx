@@ -1,9 +1,19 @@
 import { Grid, GridItem, useColorMode } from "@chakra-ui/react";
-import { Outlet } from "react-router-dom";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
+import { Outlet, useNavigate } from "react-router-dom";
 import NavBar from "../../components/NavBar";
+import { useEffect } from "react";
 
 const AuthLayout = () => {
   const { colorMode } = useColorMode();
+  const isAuthenticated = useIsAuthenticated();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>
