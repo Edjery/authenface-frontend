@@ -2,6 +2,7 @@ import { Button, HStack, Heading } from "@chakra-ui/react";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
 import { Link, useNavigate } from "react-router-dom";
+import { APPLICATION_NAME } from "../info-matrix";
 import ColorModeSwitch from "./ColorModeSwitch";
 
 const NavBar = () => {
@@ -17,7 +18,7 @@ const NavBar = () => {
   return (
     <HStack mt={5} mx={10} justifyContent="space-between">
       <Link to="/">
-        <Heading>AuthenFace</Heading>
+        <Heading>{APPLICATION_NAME}</Heading>
       </Link>
       <HStack>
         <ColorModeSwitch />

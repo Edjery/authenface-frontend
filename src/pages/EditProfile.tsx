@@ -14,19 +14,17 @@ import { Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { useNavigate } from "react-router-dom";
+import IAccountImg from "../components/Interface/IAccountImg";
+import IAccountInfo from "../components/Interface/IAccountInfo";
+import IAccountPass from "../components/Interface/IAccountPass";
+import InactiveModal from "../components/common/InactiveModal";
 import popUpError from "../helpers/popUpError";
-import IAuthUser from "./auth/interface/IAuthUser";
 import accountImgSchema from "../schema/accountImgSchema";
 import accountInfoSchema from "../schema/accountInfoSchema";
 import accountPassSchema from "../schema/accountPassSchema";
 import IUser from "../services/interfaces/IUser";
 import userService from "../services/userService";
-import IAccountImg from "../components/Interface/IAccountImg";
-import IAccountInfo from "../components/Interface/IAccountInfo";
-import IAccountPass from "../components/Interface/IAccountPass";
-import InactiveModal from "../components/common/InactiveModal";
-
-// TODO: add cohesion
+import IAuthUser from "./auth/interface/IAuthUser";
 
 const EditProfile = () => {
   const auth = useAuthUser<IAuthUser>();
