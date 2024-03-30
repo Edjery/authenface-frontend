@@ -1,3 +1,4 @@
+import popUpError from "../helpers/popUpError";
 import axiosInstance from "./apiClient";
 import IDataResponse from "./interfaces/IDataResponse";
 import IWebsite from "./interfaces/IWebsite";
@@ -40,6 +41,7 @@ class WebsiteService {
       return data;
     } else {
       console.error("Error: No data with that ID");
+      popUpError("Error: No data with that ID");
     }
   }
 
@@ -57,6 +59,7 @@ class WebsiteService {
       this.websites.push(newData);
       return newData;
     } catch (error) {
+      popUpError("Error in creating data");
       console.error("Error in creating data:", error);
       throw error;
     }
@@ -76,10 +79,12 @@ class WebsiteService {
         }
         return updatedData;
       } else {
+        popUpError("Error: No data with that ID");
         console.error("Error: No data with that ID");
         return null;
       }
     } catch (error) {
+      popUpError("Error in updating data");
       console.error("Error in updating data:", error);
       throw error;
     }
@@ -96,9 +101,11 @@ class WebsiteService {
         return deletedData;
       } else {
         console.error("Error: No data with that ID");
+        popUpError("Error: No data with that ID");
         return null;
       }
     } catch (error) {
+      popUpError("Error in deleting data");
       console.error("Error in deleting data:", error);
       throw error;
     }

@@ -1,3 +1,4 @@
+import popUpError from "../helpers/popUpError";
 import axiosInstance from "./apiClient";
 import IDataResponse from "./interfaces/IDataResponse";
 import ISnapshot from "./interfaces/ISnapshot";
@@ -18,6 +19,7 @@ class SnapshotService {
       return data;
     } else {
       console.error("Error: No data with that ID");
+      popUpError("Error: No data with that ID");
     }
   }
 
@@ -34,6 +36,7 @@ class SnapshotService {
       }
     } catch (error) {
       console.error("Error in deleting data:", error);
+      popUpError("Error in deleting data");
       throw error;
     }
   }

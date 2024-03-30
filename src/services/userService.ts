@@ -34,6 +34,7 @@ class UserService {
           }
         } else {
           console.error("Error:", error.message);
+          popUpError(error.message);
         }
       } else {
         console.error("Error in updating data:", error);
@@ -59,6 +60,7 @@ class UserService {
           }
         } else {
           console.error("Error:", error.message);
+          popUpError(error.message);
         }
       } else {
         console.error("Error in updating data:", error);
@@ -106,6 +108,7 @@ class UserService {
           }
         } else {
           console.error("Error:", error.message);
+          popUpError(error.message);
         }
       } else {
         console.error("Error in updating data:", error);
