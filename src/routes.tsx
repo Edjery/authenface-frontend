@@ -7,7 +7,7 @@ import Layout from "./pages/Layout";
 import Profile from "./pages/Profile";
 import AuthLayout from "./pages/auth/AuthLayout";
 import Register from "./pages/auth/Register";
-import Login from "./pages/auth/login";
+import Login from "./pages/auth/Login";
 
 const router = createBrowserRouter([
   {
