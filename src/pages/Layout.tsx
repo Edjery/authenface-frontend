@@ -25,13 +25,14 @@ const Layout = () => {
         <GridItem
           pl="2"
           area={"header"}
+          minHeight={{ base: "10vh", lg: "10vh" }}
           bg={colorMode === "dark" ? "blue.900" : "blue.200"}
         >
           <NavBar />
         </GridItem>
         <GridItem
           pl="2"
-          minHeight="80vh"
+          minHeight={{ base: "10vh", lg: "70vh" }}
           area={"sidebar"}
           bg={colorMode === "dark" ? "blue.800" : "blue.100"}
         >
@@ -39,17 +40,19 @@ const Layout = () => {
         </GridItem>
         <GridItem
           pl="2"
-          area={"footer"}
-          bg={colorMode === "dark" ? "blue.800" : "blue.100"}
-        >
-          <Footer />
-        </GridItem>
-        <GridItem
-          pl="2"
           area={"main"}
+          minHeight={{ base: "70vh", lg: "70vh" }}
           bg={colorMode === "dark" ? "blue.800" : "blue.100"}
         >
           <Outlet />
+        </GridItem>
+        <GridItem
+          pl="2"
+          area={"footer"}
+          minHeight={{ base: "10vh", lg: "10vh" }}
+          bg={colorMode === "dark" ? "blue.800" : "blue.100"}
+        >
+          <Footer />
         </GridItem>
       </Grid>
     </>
