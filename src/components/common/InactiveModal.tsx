@@ -17,6 +17,7 @@ const InactiveModal = () => {
   const handleLogout = () => {
     navigate("/login");
   };
+  
   return (
     <Modal isOpen={!isAuthenticated()} onClose={handleLogout}>
       <ModalOverlay />
