@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Checkbox,
   FormControl,
   FormLabel,
   Input,
@@ -9,12 +10,15 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
+import { useState } from "react";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
 import { Link, useNavigate } from "react-router-dom";
+import TermsDialog from "../../components/TermsDialog";
+import popUpError from "../../helpers/popUpError";
 import registerSchema from "../../schema/registerSchema";
 import userService from "../../services/userService";
-import IAccountValues from "./interface/IRegisterValues";
 import IAuthUser from "./interface/IAuthUser";
+import IAccountValues from "./interface/IRegisterValues";
 
 const Register = () => {
   const initialValues: IAccountValues = {
@@ -24,10 +28,13 @@ const Register = () => {
     confirmPassword: "",
     userImage: null,
   };
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [termsOpen, setTermsOpen] = useState(false);
+
   const { colorMode } = useColorMode();
   const navigate = useNavigate();
   const signIn = useSignIn();
-  // TODO: handle error fo error connection
+
   const handleSignIn = (token: string, userData: IAuthUser) => {
     signIn({
       auth: {
@@ -56,7 +63,11 @@ const Register = () => {
         initialValues={initialValues}
         validationSchema={registerSchema}
         onSubmit={(values) => {
-          handleSubmit(values);
+          if (acceptTerms) {
+            handleSubmit(values);
+          } else {
+            popUpError("You need to agree to the terms and conditions to register")
+          }
         }}
       >
         {({ setFieldValue, errors, touched }) => (
@@ -135,6 +146,20 @@ const Register = () => {
                 </Text>
               </FormControl>
 
+              <FormControl>
+                <Checkbox
+                  isChecked={acceptTerms}
+                  onChange={(e) => setAcceptTerms(e.target.checked)}
+                >
+                  <Text>
+                    I agree to the{' '}
+                    <Text as="span" textDecoration="underline" onClick={() => setTermsOpen(true)} cursor="pointer">
+                      Terms and Conditions
+                    </Text>
+                  </Text>
+                </Checkbox>
+              </FormControl>
+
               <Button mt={5} type="submit" colorScheme="blue" width="full">
                 Register
               </Button>
@@ -142,10 +167,12 @@ const Register = () => {
           </Form>
         )}
       </Formik>
-      <Box mt={5} textDecoration={"underline"}>
+      <Box mt={5} textDecoration="underline">
         <Link to="/login">Already have an account? Sign in</Link>
       </Box>
+      <TermsDialog open={termsOpen} onClose={() => setTermsOpen(false)} />
     </Box>
   );
 };
+
 export default Register;
